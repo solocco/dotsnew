@@ -1,0 +1,16 @@
+#!/bin/bash
+
+while true; do
+    internet=$($HOME/.local/bin/status/dwmstatus-internet)
+    bt=$($HOME/.local/bin/status/dwmstatus-bt)
+    cputemp=$($HOME/.local/bin/status/dwmstatus-cputemp)
+    memory=$($HOME/.local/bin/status/dwmstatus-memory)
+    brightness=$($HOME/.local/bin/status/dwmstatus-brightness)
+    volume=$($HOME/.local/bin/status/dwmstatus-volume)
+    datetime=$($HOME/.local/bin/status/dwmstatus-datetime)
+    user=$($HOME/.local/bin/status/dwmstatus-user)
+    sep=$($HOME/.local/bin/status/dwmstatus-sep)
+
+    xsetroot -name " $bt $internet $cputemp $memory $brightness $volume $datetime $user "
+    sleep 1
+done

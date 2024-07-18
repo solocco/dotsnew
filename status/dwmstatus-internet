@@ -1,0 +1,9 @@
+#!/bin/bash
+
+interface='wlp3s0'
+  ssid=$(iw $interface link | grep 'SSID' | awk 'NR%1==0 {print $2}')
+
+  case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+    up) printf "󰤨 ($ssid)" ;;
+    down) printf "󰤮 offline" ;;
+  esac

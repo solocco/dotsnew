@@ -1,0 +1,5 @@
+#!/bin/bash
+
+icon=""
+username=${USER^^}
+printf "%s%s\\n" "$icon $username"

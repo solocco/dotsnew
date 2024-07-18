@@ -1,0 +1,26 @@
+#!/bin/bash
+    
+# Check if Bluetooth is powered on
+icon_on="󰂯"
+icon_off="󰂲"
+
+BT_POWERED=$(bluetoothctl show | grep "Powered: yes")
+
+if [ -n "$BT_POWERED" ]; then
+    BT_DEVICES=$(bluetoothctl devices Connected | awk '{$1=$2=""; print substr($0, 3)}')
+    if [ -z "$BT_DEVICES" ]; then
+        BT_MESSAGE="$icon_on On (No connected devices)"
+    else
+        BT_MESSAGE="$icon_on ($BT_DEVICES)"
+    fi
+else
+    BT_MESSAGE="$icon_off Off"
+fi
+
+echo "$BT_MESSAGE"
+
+
+
+
+
+
