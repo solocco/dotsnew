@@ -1,35 +1,27 @@
-#!/usr/bin/dash
-backlight() {
-	icon=" "
-	backlight=$(printf "%.0f\n" `light -G`)
-	printf "^c#a3be8c^$icon$backlight"
-}
+#!/bin/bash
 
-kernel() {
-  stat=$(uname -r | rev | cut -b3- | rev | cut -b1-)
-  printf "^c#9399b2^  $stat "
-}
+# rose pine colors
+love=#eb6f92
+gold=#f6c177
+rose=#ebbcba
+pine=#31748f
+foam=#9ccfd8
+iris=#c4a7e7
+overlay=#26233a
+bg=#25233a
+subtle=#908caa
+fg=#e0def4
 
-logo() {
-  printf "  "
-}
+interval=0
 
-mem() {
-  memused=$(free -h --giga | grep Mem | awk '{print $3}')
-  printf "^c#a3be8c^﬙ $memused"
-}
+wlan() {
+  interface='wlp3s0'
+  ssid=$(iw $interface link | grep 'SSID' | awk 'NR%1==0 {print $2}')
 
-temp_cpu() {
-  crit=50
-
-  read -r temp </sys/class/thermal/thermal_zone0/temp
-  temp="${temp%???}"
-
-  if [ "$temp" -lt "$crit" ] ; then
-      printf "^c#a3be8c^ $temp°"
-  else
-      printf "^c#a3be8c^ $temp°"
-  fi
+  case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+    up) printf "^c$rose^󰤨 $ssid^d^" ;;
+    down) printf "^c$subtle^󰤮 offline^d^" ;;
+  esac
 }
 
 vol() {
@@ -48,45 +40,60 @@ fi
 printf "^c#a3be8c^$icon$vol"
 }
 
-calendar() {
-  printf "^c#a3be8c^$(date '+ %A,%d %B')"
+ram() {
+  mem_total=$(free -m | awk 'NR%2==0 {print $2}')
+  mem_avail=$(free -m | awk 'NR%2==0 {print $7}')
+  mem_used=$(( $mem_total - $mem_avail ))
+  mem_usage=$(( $mem_used * 100 / $mem_total ))
+  if [ $mem_usage -ge 80 ]; then
+    printf "^c$love^󰘚 ${mem_usage}%%!"
+  else
+    printf "^c$pine^󰘚 ${mem_usage}%%"
+  fi
 }
 
-time() {
-  printf "^c#a3be8c^$(date '+ %R ')"
+backlight() {
+	icon=" "
+	backlight=$(printf "%.0f\n" `light -G`)
+	printf "^c#a3be8c^$icon$backlight"
 }
 
-sep() {
-  printf "^b#282828^  "
+temp_cpu() {
+  crit=50
+
+  read -r temp </sys/class/thermal/thermal_zone0/temp
+  temp="${temp%???}"
+
+  if [ "$temp" -lt "$crit" ] ; then
+      printf "^c#a3be8c^ $temp°"
+  else
+      printf "^c#a3be8c^ $temp°"
+  fi
 }
 
-## Wi-fi
-wlan() {
-	case "$(cat /sys/class/net/w*/operstate 2>/dev/null)" in
-		up) printf "^c#a3be8c^  %s" " Connected" ;;
-		down) printf "^c#a3be8c^ 睊 %s" " Disconnected" ;;
-	esac
+BT() {
+# Get the Bluetooth status
+    BT_STATUS=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
+
+    echo "$(date): Bluetooth status: $BT_STATUS" >> $LOGFILE
+
+    # Determine the display message
+    if [ "$BT_STATUS" = "yes" ]; then
+        # Get connected devices
+        BT_DEVICES=$(bluetoothctl devices Connected | awk -F' ' '{print $3, $4, $5}')
+        
+        if [ -z "$BT_DEVICES" ]; then
+            BT_MESSAGE="On (No connected devices)"
+        else
+            BT_MESSAGE="On ($BT_DEVICES)"
+        fi
+    else
+        BT_MESSAGE="Off"
+    fi
 }
 
-## Cpu Info
-cpu_info() {
-	cpu_load=$(grep -o "^[^ ]*" /proc/loadavg)
-
-	printf " CPU"
-	printf " $cpu_load"
-}
-
-
-wlan
-sep
-mem
-sep
-temp_cpu
-sep
-vol
-sep
-backlight
-sep
-calendar
-sep
-time
+while true; do
+  interval=$((interval + 1))
+  xsetroot -name  " $(BT) $(temp_cpu) $(backlight) $(vol) $(ram) $(wlan) $(date +"^c$iris^󰃮 %a %d %B 󱑇 %I:%M %p")   "
+  sleep 1
+done
