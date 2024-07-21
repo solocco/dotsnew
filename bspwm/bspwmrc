@@ -62,6 +62,8 @@ bspc rule -a Google-chrome:crx_ojggmchlghnjlapmfbnjholfjkiidbch state=floating
 bspc rule -a Google-chrome:crx_enabgbdfcbaehmbigakijjabdpdnimlg state=floating
 ###Fuelet Wallet###
 bspc rule -a Google-chrome:crx_bifidjkcdpgfnlbcjpdkdcnbiooooblg state=floating
+###Pocket Universe####
+bspc rule -a Google-chrome:crx_gacgndbocaddlemdiaadajmlggabdeod state=floating
 
 
 #bspc rule -a Google-chrome:google-chrome state=floating
