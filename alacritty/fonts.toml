@@ -11,19 +11,19 @@ builtin_box_drawing = true
 
 ## Normal font family.
 [font.normal]
-family = "Iosevka Mayukai Original"
+family = "SF Mono Nerd Font"
 
 ## If the family is not specified, it will fall back to the value specified for the normal font.
 [font.bold]
-family = "Iosevka Mayukai Original"
+family = "SF Mono Nerd Font"
 
 ## If the family is not specified, it will fall back to the value specified for the normal font.
 [font.italic]
-family = "Iosevka Mayukai Original"
+family = "SF Mono Nerd Font"
 
 ## If the family is not specified, it will fall back to the value specified for the normal font.
 [font.bold_italic]
-family = "Iosevka Mayukai Original"
+family = "SF Mono Nerd Font"
 
 ## Offset is the extra space around each character.
 ## 'y' can be thought of as modifying the line spacing, and 'x' as modifying the letter spacing.
