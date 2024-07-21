@@ -1,5 +1,12 @@
 #!/bin/bash
 
+function run {
+  if ! pgrep $1 ;
+  then
+    $@&
+  fi
+}
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 $HOME/.config/polybar/launch.sh
@@ -18,8 +25,13 @@ pgrep -x dunst > /dev/null || dunst -config $HOME/.config/dunst/dunstrc &
 
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
-# Enable power management
-xfce4-power-manager &
+run xfce4-power-manager &
+
+picom --config $HOME/.config/picom/picom.conf &
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+numlockx off &
 
 
 
