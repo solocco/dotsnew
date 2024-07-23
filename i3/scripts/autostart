@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+$HOME/.config/polybar/i3bar
+
+# $HOME/.config/i3/picom.conf
+
+light -S 20
+
+xsetroot -cursor_name left_ptr &
+
+feh --no-fehbg --bg-fill $HOME/.config/bspwm/great-wave-of-kanagawa-gruvbox.png &
+
+pgrep -x dunst > /dev/null || dunst -config $HOME/.config/dunst/dunstrc &
+
+# /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+
+run xfce4-power-manager &
+
+picom --config $HOME/.config/picom/picom.conf &
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
