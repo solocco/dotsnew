@@ -8,7 +8,7 @@ configuration {
 @import "~/.config/rofi/themes/colors.rasi"
 
 * {
-	font: "JetbrainsMono Nerd Font 12";
+	font: "SF Mono Nerd Font 12";
 	separatorcolor: transparent;
 }
 
