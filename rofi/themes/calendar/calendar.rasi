@@ -1,15 +1,15 @@
 configuration {
-    font:                           "Jetbrains Mono Nerd Font 12";
+    font:                           "SF Mono Nerd Font 12";
     show-icons:                     false;
-	icon-theme: 					"Papirus";
+    icon-theme: 					"Papirus";
     display-drun: 					":";
     drun-display-format:            "{name}";
     threads:                        0;
     scroll-method:                  0;
     disable-history:                false;
     fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+    hide-scrollbar: 				true;
+    sidebar-mode: 					false;
 }
 
 @import "~/.config/rofi/themes/calendar/colors.rasi"
@@ -18,7 +18,7 @@ window {
     transparency:                   "real";
     background-color:               @background;
     text-color:                     @foreground;
-	border:							1px;
+    border:							1px;
     border-radius:                  0px;
     border-color:					@selected;
     width:                          384px;
@@ -109,7 +109,7 @@ element-icon {
 }
 
 element-text {
-    font:							"Jetbrains Mono Nerd Font 12";
+    font:							"SF Mono Nerd Font 12";
     expand:                         true;
     horizontal-align:               0;
     vertical-align:                 0;
